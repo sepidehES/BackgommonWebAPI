@@ -38,7 +38,7 @@ namespace BLL.Services
 
         public IEnumerable<Tournament> GetAll()
         {
-            throw new NotImplementedException();
+            return _TournamentRepository.GetAll();
         }
 
         public Tournament? GetById(int tournamentId)

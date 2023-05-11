@@ -18,13 +18,16 @@ builder.Services.AddTransient<IDbConnection, SqlConnection>((service) =>
     return new SqlConnection(connectionString);
 });
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
 
 // - BLL
 builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<ITournamentService, TournamentService>();
+
 //// - API Helper
 //builder.Services.AddSingleton<JwtHelper>();
 
-//builder.Services.AddSingleton<JwtHelper>();
+
 
 builder.Services.AddControllers();
 

@@ -25,8 +25,8 @@ namespace DAL.Repositories
                 (string)record["TournamentName"],
                 (string)record["Description"],
                 (int)record["MaxPlayer"],
-                (int)record["IsStarted"],
-                (int)record["IsOpen"]
+                (bool)record["IsStarted"],
+                (bool)record["IsOpen"]
 
             ); 
         }

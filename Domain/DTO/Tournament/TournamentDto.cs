@@ -9,7 +9,7 @@ namespace Domain.DTO.Tournament
 {
     public class TournamentDto
     {
-        public TournamentDto(int tournamentId, string tournamentName, string description, int maxPlayer, int isStarted, int isOpen)
+        public TournamentDto(int tournamentId, string tournamentName, string description, int maxPlayer, bool isStarted, bool isOpen)
         {
             TournamentId = tournamentId;
             TournamentName = tournamentName;
@@ -23,7 +23,7 @@ namespace Domain.DTO.Tournament
         public string TournamentName { get; set; }
         public string Description { get; set; }
         public int MaxPlayer { get; set; }
-        public int IsStarted { get; set; }
-        public int IsOpen { get; set; }
+        public bool IsStarted { get; set; }
+        public bool IsOpen { get; set; }
     }
 }

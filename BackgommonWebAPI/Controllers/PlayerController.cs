@@ -14,7 +14,7 @@ using Domain.Models;
 
 namespace BackgommonWebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("Auth")]
     [ApiController]
     //[Authorize]
     public class PlayerController : ControllerBase

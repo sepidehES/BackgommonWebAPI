@@ -16,7 +16,7 @@ using BLL.Services;
 
 namespace BackgommonWebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     //[Authorize]
     public class TournamentController : ControllerBase
@@ -30,13 +30,14 @@ namespace BackgommonWebAPI.Controllers
         }
 
 
+        //[HttpGet("{id:int}")]
         [HttpGet("{id:int}")]
         [Produces("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TournamentDto))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<TournamentDto> GetById([FromRoute] int tournamentId)
+        public ActionResult<TournamentDto> GetById([FromRoute] int id)
         {
-            Tournament? model = _tournamentService.GetById(tournamentId);
+            Tournament? model = _tournamentService.GetById(id);
 
             if (model is null)
             {
@@ -46,7 +47,18 @@ namespace BackgommonWebAPI.Controllers
             return Ok(model.ToTournamentDTO());
         }
 
-        [HttpPost("register")]
+
+        [HttpGet]
+        [AllowAnonymous] // Déactive l'attirubte [Authorize] de la classe
+        [Produces("application/json")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<TournamentDto>))]
+        public ActionResult<IEnumerable<TournamentDto>> GetAll()
+        {
+            return Ok(_tournamentService.GetAll().ToTournamentDtoList());
+        }
+
+
+        [HttpPost]
         [AllowAnonymous]
         [Produces("application/json")]
         [Consumes("application/json")]
@@ -63,7 +75,7 @@ namespace BackgommonWebAPI.Controllers
 
             if (tournament == null) return BadRequest();
 
-            return Created($"/api/tournament/{tournament.TournamentId}", tournament);
+            return Created($"tournament/{tournament.TournamentId}", tournament);
         }
 
     }
