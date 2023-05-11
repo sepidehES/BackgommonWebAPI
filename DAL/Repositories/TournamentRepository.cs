@@ -24,8 +24,11 @@ namespace DAL.Repositories
                 (int)record["TournamentId"],
                 (string)record["TournamentName"],
                 (string)record["Description"],
-                (int)record["MaxPlayer"]
-            );
+                (int)record["MaxPlayer"],
+                (int)record["IsStarted"],
+                (int)record["IsOpen"]
+
+            ); 
         }
 
         private void AddParameter(IDbCommand command, string name, object data)

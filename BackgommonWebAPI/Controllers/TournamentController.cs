@@ -12,6 +12,7 @@ using Umbraco.Core.Services.Implement;
 using System.IdentityModel.Tokens.Jwt;
 using Domain.Models;
 using Domain.DTO.Tournament;
+using BLL.Services;
 
 namespace BackgommonWebAPI.Controllers
 {
@@ -42,27 +43,27 @@ namespace BackgommonWebAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(model.ToPlayerDTO());
+            return Ok(model.ToTournamentDTO());
         }
 
         [HttpPost("register")]
         [AllowAnonymous]
         [Produces("application/json")]
         [Consumes("application/json")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PlayerDto))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TournamentDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<PlayerDto> Create([FromBody] CreatePlayerForm createForm)
+        public ActionResult<TournamentDto> Create([FromBody] CreateTournamentForm createForm)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            PlayerDto? player = _playerService.Create(createForm.ToPlayer())?.ToPlayerDTO();
+            TournamentDto? tournament = _tournamentService.Create(createForm.ToTournament())?.ToTournamentDTO();
 
-            if (player == null) return BadRequest();
+            if (tournament == null) return BadRequest();
 
-            return Created($"/api/player/{player.PlayerId}", player);
+            return Created($"/api/tournament/{tournament.TournamentId}", tournament);
         }
 
     }

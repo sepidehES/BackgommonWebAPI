@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,29 +18,33 @@ namespace Domain.Mappers
         public static TournamentDto ToTournamentDTO(this Tournament model)
         {
             return new TournamentDto(
-                model.PlayerId,
-                model.Pseudo,
-                model.Email
+                model.TournamentId,
+                model.TournamentName,
+                model.Description,
+                model.MaxPlayer,
+                model.IsStarted,
+                model.IsOpen
                 ); 
         }
 
-        public static IEnumerable<TournamentDto> ToPlayerDtoList(this IEnumerable<Player> models)
+        public static IEnumerable<TournamentDto> ToTournamentDtoList(this IEnumerable<Tournament> models)
         {
             foreach (var model in models)
             {
-                yield return model.ToPlayerDTO();
+                yield return model.ToTournamentDTO();
             }
         }
 
-        public static Player ToPlayer(this CreatePlayerForm createForm)
+        public static Tournament ToTournament(this CreateTournamentForm createForm)
         {
-            return new Player(
-                createForm.Pseudo,
-                createForm.Email,
-                createForm.Password_Hash
-                );
+            return new Tournament(
+                createForm.TournamentName,
+                createForm.Description,
+                createForm.MaxPlayer
+
+                 );
         }
 
-
+        
     }
 }
