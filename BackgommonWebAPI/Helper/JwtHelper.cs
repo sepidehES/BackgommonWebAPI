@@ -40,5 +40,6 @@ namespace BackgommonWebAPI.Helper
     //        return new JwtSecurityTokenHandler().WriteToken(securityToken);
     //    }
 
+
     }
 }
