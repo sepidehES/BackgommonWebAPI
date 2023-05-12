@@ -29,12 +29,12 @@ namespace DAL.Repositories
         private Match Convert(IDataRecord record)
         {
             return new Match(
-                (int)record["[MatchId]"],
-                (DateTime)record["[DateStart] "],
-                (DateTime)record["[DateEnd]" ],
-                (int)record["[Player1Id]" ],
-                (int)record["[Player2Id]" ],
-                (int)record["[TournamentId]"]
+                (int)record["MatchId"],
+                (DateTime)record["DateStart"],
+                (DateTime)record["DateEnd"],
+                (int)record["Player1Id"],
+                (int)record["Player2Id"],
+                (int)record["TournamentId"]
 
 
             );

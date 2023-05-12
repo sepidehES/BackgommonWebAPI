@@ -24,11 +24,13 @@ builder.Services.AddTransient<IDbConnection, SqlConnection>((service) =>
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 builder.Services.AddScoped<ITournamentRepository, TournamentRepository>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+builder.Services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
 // - BLL
 builder.Services.AddScoped<IPlayerService, PlayerService>();
 builder.Services.AddScoped<ITournamentService, TournamentService>();
 builder.Services.AddScoped<IMatchService, MatchService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 
 //// - API Helper
 builder.Services.AddSingleton<JwtHelper>();
