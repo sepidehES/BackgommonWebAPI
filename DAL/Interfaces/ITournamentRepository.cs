@@ -13,7 +13,11 @@ namespace DAL.Interfaces
         public IEnumerable<Tournament> GetAll();
         public Tournament? GetById(int tournamentId);
         public bool Delete(int tournamentId);
-
+        public bool Update(int tournamentId, Tournament tournament);
+        
+        public bool UpdateOpen (int tournamentId);
+        public bool UpdateClose (int tournamentId);
+        public bool UpdateStart (int tournamentId);
     }
 }
 

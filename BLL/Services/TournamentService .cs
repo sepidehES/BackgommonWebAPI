@@ -1,4 +1,5 @@
-﻿using BLL.Interfaces;
+﻿using AwSales.Modelo.Person;
+using BLL.Interfaces;
 using DAL.Interfaces;
 using DAL.Repositories;
 using Domain.Models;
@@ -46,6 +47,31 @@ namespace BLL.Services
             return  _TournamentRepository.GetById(tournamentId);
         }
 
-       
+        public bool Update(int tournamentId, Tournament tournament)
+        {
+            Tournament tournamentSecure = new Tournament(
+                tournament.TournamentName,
+                tournament.Description,
+                tournament.MaxPlayer
+                );
+            return _TournamentRepository.Update(tournamentId, tournamentSecure); 
+
+
+        }
+
+
+        public bool UpdateOpen(int tournamentId)
+        {
+            return _TournamentRepository.UpdateOpen(tournamentId);
+        }
+        public bool UpdateClose(int tournamentId)
+        {
+            return _TournamentRepository.UpdateClose(tournamentId);
+        }
+
+        public bool UpdateStart(int tournamentId)
+        {
+            return _TournamentRepository.UpdateStart(tournamentId);
+        }
     }
 }

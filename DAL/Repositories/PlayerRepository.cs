@@ -101,6 +101,29 @@ namespace DAL.Repositories
             return player;
         }
 
+        public Player? GetByName(string name)
+        {
+            IDbCommand command = _Connection.CreateCommand();
+            command.CommandText = "SELECT * FROM [Player] WHERE [Pseudo] = @Pseudo";
+            command.CommandType = CommandType.Text;
+
+            AddParameter(command, "Pseudo", name);
+
+            Player? player = null;  
+
+            _Connection.Open();
+
+            using ( IDataReader reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    player = Convert(reader);
+                }
+            }
+            _Connection.Close();
+            return player;
+
+        }
     }
     
 }

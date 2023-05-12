@@ -10,6 +10,7 @@ namespace DAL.Interfaces
     public interface IPlayerRepository
     {
         public Player? GetById(int playerId);
+        public Player? GetByName(string name);
         public Player? Create(Player player);
         public bool Delete(int playerId);
 

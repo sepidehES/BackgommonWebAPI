@@ -131,5 +131,95 @@ namespace DAL.Repositories
 
             return nbRow == 1;
         }
+
+        public bool Update(int tournamentId, Tournament tournament)
+        {
+
+            IDbCommand command = _Connection.CreateCommand();
+            command.CommandText = "UPDATE [Tournament] " +
+                                  "SET [TournamentName] = @TournamentName, " +
+                                  "[Description] = @Description, " +
+                                  "[MaxPlayer] = @MaxPlayer " +
+                                  "WHERE [TournamentId] = @TournamentId"
+                                  ;
+            command.CommandType = CommandType.Text;
+
+            AddParameter(command, "TournamentId", tournamentId);
+            AddParameter(command, "TournamentName", tournament.TournamentName);
+            AddParameter(command, "Description", tournament.Description);
+            AddParameter(command, "MaxPlayer", tournament.MaxPlayer);
+
+            _Connection.Open() ;
+            int nbRows = command.ExecuteNonQuery();
+            _Connection.Close();
+
+            return nbRows == 1;
+
+
+
+
+
+        }
+
+        public bool UpdateOpen(int tournamentId)
+        {
+          
+            string query = "UPDATE [Tournament] " +
+                " SET [IsOpen] = 1 " +
+                " WHERE [TournamentId] = @TournamentId";
+
+            IDbCommand command = _Connection.CreateCommand();
+            command.CommandText = query;
+            command.CommandType = CommandType.Text;
+
+            AddParameter(command, "TournamentId", tournamentId);
+
+            _Connection.Open();
+            int nbRow = command.ExecuteNonQuery();
+            _Connection.Close();
+
+            return nbRow == 1;
+            
+
+        }
+
+        public bool UpdateClose(int tournamentId)
+        {
+            string query = "UPDATE [Tournament] " +
+                " SET [IsOpen] = 0 " +
+                " WHERE [TournamentId] = @TournamentId";
+
+            IDbCommand command = _Connection.CreateCommand();
+            command.CommandText = query;
+            command.CommandType = CommandType.Text;
+
+            AddParameter(command, "TournamentId", tournamentId);
+
+            _Connection.Open();
+            int nbRow = command.ExecuteNonQuery();
+            _Connection.Close();
+
+            return nbRow == 1;
+
+        }
+
+        public bool UpdateStart(int tournamentId)
+        {
+            string query = "UPDATE [Tournament] " +
+                " SET [IsStarted] = 1 " +
+                " WHERE [TournamentId] = @TournamentId";
+
+            IDbCommand command = _Connection.CreateCommand();
+            command.CommandText = query;
+            command.CommandType = CommandType.Text;
+
+            AddParameter(command, "TournamentId", tournamentId);
+
+            _Connection.Open();
+            int nbRow = command.ExecuteNonQuery();
+            _Connection.Close();
+
+            return nbRow == 1;
+        }
     }
 }

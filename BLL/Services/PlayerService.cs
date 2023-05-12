@@ -21,9 +21,9 @@ namespace BLL.Services
             _playerRepository = playerRepository;
         }
 
-        public int? Login(int playerId, string password_Hash)
+        public int? Login(string playerName, string password_Hash)
         {
-            Player? players = _playerRepository.GetById(playerId);
+            Player? players = _playerRepository.GetByName(playerName);
             if (players == null)
             {
                 return null;
@@ -55,6 +55,5 @@ namespace BLL.Services
             return _playerRepository.GetById(PlayerId);
         }
 
-       
     }
 }

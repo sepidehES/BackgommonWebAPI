@@ -9,9 +9,8 @@ namespace BLL.Interfaces
 {
     public interface IPlayerService
     {
-        public int? Login(int playerId, string password_Hash);
+        public int? Login(string playerName, string password_Hash);
         public Player? Create(Player player);
-
         public bool Delete(int PlayerId);
         Player? GetById(int PlayerId);
     }
