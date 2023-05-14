@@ -9,6 +9,6 @@ namespace BLL.Interfaces
 {
     public interface ISubscriptionService
     {
-        public TournamentUser? Create(TournamentUser tournamentUser);
+        public TournamentUser? Create(TournamentUser tournamentUser, int id);
     }
 }

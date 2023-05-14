@@ -29,6 +29,16 @@ namespace BackgommonWebAPI.Controllers
             _JwtHelper = jwtHelper;
         }
 
+        private int? PlayerId
+        {
+            get
+            {
+                string? tokenId = User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                return (tokenId is null) ? null : int.Parse(tokenId);
+            }
+        }
+
+
 
         [HttpGet("{id:int}")]
         [Produces("application/json")]

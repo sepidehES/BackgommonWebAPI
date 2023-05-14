@@ -18,11 +18,11 @@ namespace BLL.Services
         {
             _SubscriptionRepository = subscriptionRepository;
         }
-        public TournamentUser? Create(TournamentUser tournamentUser)
+        public TournamentUser? Create(TournamentUser tournamentUser, int id)
         {
             TournamentUser tournamentSecure = new TournamentUser(
-                tournamentUser.TournamentId,
-                tournamentUser.PlayerId
+                tournamentUser.TournamentId, 
+                id
                 );
             return _SubscriptionRepository.Create(tournamentSecure);
         }

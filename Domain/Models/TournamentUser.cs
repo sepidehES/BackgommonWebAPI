@@ -8,16 +8,10 @@ namespace Domain.Models
 {
     public class TournamentUser
     {
-        public TournamentUser(int playerId)
-        {
-            TournamentId = -1;
-            PlayerId = playerId;
-        }
-
-        public TournamentUser(int tournamentId, int playerId)
-            : this(playerId)
+        public TournamentUser(int tournamentId,int playerId)
         {
             TournamentId = tournamentId;
+            PlayerId = playerId;
         }
 
         public int TournamentId {get; set; }

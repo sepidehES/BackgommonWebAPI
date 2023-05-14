@@ -57,11 +57,15 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="InitialData" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\TournnamentUser.sql" />
     <Build Include="Tables\Player.sql" />
     <Build Include="Tables\Tournament.sql" />
     <Build Include="Tables\Match.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="InitialData\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

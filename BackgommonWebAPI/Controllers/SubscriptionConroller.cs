@@ -1,25 +1,40 @@
-﻿using BLL.Interfaces;
+﻿using BackgommonWebAPI.Helper;
+using BLL.Interfaces;
 using BLL.Services;
 using Domain.DTO.Tournament;
 using Domain.DTO.TournamentUser;
 using Domain.Forms.TournamentUser;
 using Domain.Forms.User;
 using Domain.Mappers;
+using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Umbraco.Core.Models.Membership;
 
 namespace BackgommonWebAPI.Controllers
 {
-
     [ApiController]
-    public class SubscriptionConroller : ControllerBase
+    public class SubscriptionController : ControllerBase
     {
         private readonly ISubscriptionService _subscriptionService;
-        //private readonly JwtHelper _JwtHelper;
-        public SubscriptionConroller(ISubscriptionService subscriptionService)
+        private readonly ITournamentService _tournamentService;
+        private readonly IPlayerService _playerService;
+        private readonly JwtHelper _JwtHelper;
+        public SubscriptionController(ISubscriptionService subscriptionService, JwtHelper jwtHelper, ITournamentService tournamentService, IPlayerService playerService)
         {
             _subscriptionService = subscriptionService;
-            //_JwtHelper = jwtHelper;
+            _JwtHelper = jwtHelper;
+            _tournamentService = tournamentService;
+            _playerService = playerService;
+        }
+
+        private int? PlayerId
+        {
+            get
+            {
+                string? tokenId = User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                return (tokenId is null) ? null : int.Parse(tokenId);
+            }
         }
 
 
@@ -28,17 +43,33 @@ namespace BackgommonWebAPI.Controllers
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TournamentUserDto))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<TournamentUserDto> Create([FromRoute] int id, [FromBody] CreateTournamentUserForm createForm)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public ActionResult<TournamentUserDto> Create([FromBody] CreateTournamentUserForm createForm,[FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+            //Check UserId in authentification(by JWT)
+            if (PlayerId is null)
+            {
+                return Forbid();
+            }
 
-            TournamentUserDto? tournament = _subscriptionService.Create(createForm.ToTournamentUser())?.ToTournamentUserDTO();
 
+
+            
+            Player? checkPlayer = _playerService.GetById((int) PlayerId);
+            TournamentUserDto? tournament = _subscriptionService.Create(createForm.ToTournamentUser(id), id)?.ToTournamentUserDTO();
+            Tournament? checkTournament = _tournamentService.GetById(tournament.TournamentId);
+
+            if (!checkTournament.IsOpen)
+            {
+                return BadRequest();
+            }
             if (tournament == null) return BadRequest();
+
 
             return Created($"tournament/{tournament.TournamentId}", tournament);
         }

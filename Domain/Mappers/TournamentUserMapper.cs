@@ -29,11 +29,11 @@ namespace Domain.Mappers
             }
         }
 
-        public static TournamentUser ToTournamentUser(this CreateTournamentUserForm createForm)
+        public static TournamentUser ToTournamentUser(this CreateTournamentUserForm createForm, int id)
         {
             return new TournamentUser(
                 createForm.TournamentId,
-                createForm.PlayerId
+                id
 
                  ); 
         }

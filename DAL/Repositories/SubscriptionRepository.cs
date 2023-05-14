@@ -47,8 +47,7 @@ namespace DAL.Repositories
 
             AddParameter(command, "TournamentId", tournamentUser.TournamentId);
             AddParameter(command, "PlayerId", tournamentUser.PlayerId);
-
-
+ 
             TournamentUser? tournamentCreated = null;
 
             try

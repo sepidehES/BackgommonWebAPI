@@ -11,8 +11,8 @@ namespace Domain.Forms.TournamentUser
     {
         [Required]
         public int TournamentId { get; set; }
-        [Required]
-        public int PlayerId { get; set; }
+        
+
 
     }
 }
