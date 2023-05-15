@@ -137,7 +137,7 @@ namespace BackgommonWebAPI.Controllers
             if (_tournamentService.UpdateOpen(id))
             {
                 return NoContent();
-            }
+            } 
 
             return BadRequest();
         }

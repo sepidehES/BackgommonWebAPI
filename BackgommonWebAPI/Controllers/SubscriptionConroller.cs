@@ -60,16 +60,16 @@ namespace BackgommonWebAPI.Controllers
 
 
             
+            Tournament? checkTournament = _tournamentService.GetById(createForm.TournamentId);
             Player? checkPlayer = _playerService.GetById((int) PlayerId);
-            TournamentUserDto? tournament = _subscriptionService.Create(createForm.ToTournamentUser(id), id)?.ToTournamentUserDTO();
-            Tournament? checkTournament = _tournamentService.GetById(tournament.TournamentId);
-
             if (!checkTournament.IsOpen)
             {
-                return BadRequest();
+                return Problem(detail: "This tournament is not open!", statusCode: StatusCodes.Status400BadRequest);
             }
-            if (tournament == null) return BadRequest();
 
+            TournamentUserDto? tournament = _subscriptionService.Create(createForm.ToTournamentUser(id), id)?.ToTournamentUserDTO();
+
+            if (tournament == null) return BadRequest();
 
             return Created($"tournament/{tournament.TournamentId}", tournament);
         }
